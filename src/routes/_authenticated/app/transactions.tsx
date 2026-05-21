@@ -30,6 +30,7 @@ function Page() {
   const [providerF, setProviderF] = useState("");
   const [riskF, setRiskF] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [drawer, setDrawer] = useState<Txn | null>(null);
   const [sort, setSort] = useState<{ k: keyof Txn; dir: "asc" | "desc" }>({ k: "created_at", dir: "desc" });
   const [page, setPage] = useState(0);
   const pageSize = 20;
