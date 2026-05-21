@@ -59,8 +59,8 @@ function Nav() {
 function Hero() {
   return (
     <section className="relative overflow-hidden glow-grid">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border bg-card px-4 py-1.5 text-xs text-muted-foreground mb-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-24 md:py-32 text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border bg-card px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs text-muted-foreground mb-6">
           <Activity className="h-3 w-3 text-primary" />
           بنية تأكيد مدفوعات للسوق المصري
         </div>
