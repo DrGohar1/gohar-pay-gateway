@@ -18,6 +18,7 @@ import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/ap
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as ApiPublicIngestRouteImport } from './routes/api/public/ingest'
 import { Route as AuthenticatedAppWebhooksRouteImport } from './routes/_authenticated/app/webhooks'
 import { Route as AuthenticatedAppTransfersRouteImport } from './routes/_authenticated/app/transfers'
 import { Route as AuthenticatedAppTransactionsRouteImport } from './routes/_authenticated/app/transactions'
@@ -80,6 +81,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const ApiPublicIngestRoute = ApiPublicIngestRouteImport.update({
+  id: '/api/public/ingest',
+  path: '/api/public/ingest',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAppWebhooksRoute =
   AuthenticatedAppWebhooksRouteImport.update({
@@ -208,6 +214,7 @@ export interface FileRoutesByFullPath {
   '/app/transactions': typeof AuthenticatedAppTransactionsRoute
   '/app/transfers': typeof AuthenticatedAppTransfersRoute
   '/app/webhooks': typeof AuthenticatedAppWebhooksRoute
+  '/api/public/ingest': typeof ApiPublicIngestRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
 }
@@ -234,6 +241,7 @@ export interface FileRoutesByTo {
   '/app/transactions': typeof AuthenticatedAppTransactionsRoute
   '/app/transfers': typeof AuthenticatedAppTransfersRoute
   '/app/webhooks': typeof AuthenticatedAppWebhooksRoute
+  '/api/public/ingest': typeof ApiPublicIngestRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
 }
@@ -264,6 +272,7 @@ export interface FileRoutesById {
   '/_authenticated/app/transactions': typeof AuthenticatedAppTransactionsRoute
   '/_authenticated/app/transfers': typeof AuthenticatedAppTransfersRoute
   '/_authenticated/app/webhooks': typeof AuthenticatedAppWebhooksRoute
+  '/api/public/ingest': typeof ApiPublicIngestRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
 }
@@ -294,6 +303,7 @@ export interface FileRouteTypes {
     | '/app/transactions'
     | '/app/transfers'
     | '/app/webhooks'
+    | '/api/public/ingest'
     | '/admin/'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
@@ -320,6 +330,7 @@ export interface FileRouteTypes {
     | '/app/transactions'
     | '/app/transfers'
     | '/app/webhooks'
+    | '/api/public/ingest'
     | '/admin'
     | '/app'
   id:
@@ -349,6 +360,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/transactions'
     | '/_authenticated/app/transfers'
     | '/_authenticated/app/webhooks'
+    | '/api/public/ingest'
     | '/_authenticated/admin/'
     | '/_authenticated/app/'
   fileRoutesById: FileRoutesById
@@ -359,6 +371,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SignupRoute: typeof SignupRoute
+  ApiPublicIngestRoute: typeof ApiPublicIngestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -425,6 +438,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/api/public/ingest': {
+      id: '/api/public/ingest'
+      path: '/api/public/ingest'
+      fullPath: '/api/public/ingest'
+      preLoaderRoute: typeof ApiPublicIngestRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/app/webhooks': {
       id: '/_authenticated/app/webhooks'
@@ -633,7 +653,18 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SignupRoute: SignupRoute,
+  ApiPublicIngestRoute: ApiPublicIngestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
