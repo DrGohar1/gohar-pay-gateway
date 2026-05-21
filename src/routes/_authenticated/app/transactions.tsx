@@ -7,7 +7,8 @@ import { EmptyState, ErrorState, LoadingSkeleton, StatusChip, providerArLabel, t
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { ChevronDown, ChevronUp, Download, Search, ListChecks } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { ChevronDown, ChevronUp, Download, Search, ListChecks, ExternalLink, CheckCircle2, XCircle, Eye } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/app/transactions")({ component: Page });
