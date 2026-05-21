@@ -555,6 +555,63 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_links: {
+        Row: {
+          amount: number
+          code: string
+          created_at: string
+          created_by: string | null
+          currency: string
+          description: string | null
+          expires_at: string | null
+          id: string
+          matched_transaction_id: string | null
+          max_uses: number | null
+          merchant_id: string
+          metadata: Json
+          status: string
+          title: string
+          updated_at: string
+          used_count: number
+        }
+        Insert: {
+          amount: number
+          code: string
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          description?: string | null
+          expires_at?: string | null
+          id?: string
+          matched_transaction_id?: string | null
+          max_uses?: number | null
+          merchant_id: string
+          metadata?: Json
+          status?: string
+          title: string
+          updated_at?: string
+          used_count?: number
+        }
+        Update: {
+          amount?: number
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          description?: string | null
+          expires_at?: string | null
+          id?: string
+          matched_transaction_id?: string | null
+          max_uses?: number | null
+          merchant_id?: string
+          metadata?: Json
+          status?: string
+          title?: string
+          updated_at?: string
+          used_count?: number
+        }
+        Relationships: []
+      }
       payment_sources: {
         Row: {
           created_at: string
@@ -839,25 +896,31 @@ export type Database = {
           created_at: string
           current_period_end: string | null
           id: string
+          is_trial: boolean
           merchant_id: string
           plan_id: string
           status: string
+          trial_ends_at: string | null
         }
         Insert: {
           created_at?: string
           current_period_end?: string | null
           id?: string
+          is_trial?: boolean
           merchant_id: string
           plan_id: string
           status?: string
+          trial_ends_at?: string | null
         }
         Update: {
           created_at?: string
           current_period_end?: string | null
           id?: string
+          is_trial?: boolean
           merchant_id?: string
           plan_id?: string
           status?: string
+          trial_ends_at?: string | null
         }
         Relationships: [
           {
