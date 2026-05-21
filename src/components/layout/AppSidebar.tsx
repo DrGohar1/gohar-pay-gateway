@@ -67,6 +67,7 @@ export function AdminSidebar() {
   const items = [
     { to: "/admin", label: "لوحة التحكم", exact: true },
     { to: "/admin/merchants", label: "التجار" },
+    { to: "/admin/subscriptions", label: "الاشتراكات والتجارب" },
     { to: "/admin/devices", label: "الأجهزة" },
     { to: "/admin/parser", label: "محرك التحليل" },
     { to: "/admin/fraud", label: "قائمة الاحتيال" },
