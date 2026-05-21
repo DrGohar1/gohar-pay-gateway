@@ -49,10 +49,11 @@ function Nav() {
           <a href="#preview" className="hover:text-foreground transition">اللوحة</a>
           <a href="#pricing" className="hover:text-foreground transition">الباقات</a>
           <a href="#faq" className="hover:text-foreground transition">الأسئلة</a>
+          <a href="#contact" className="hover:text-foreground transition">اتصل بنا</a>
         </nav>
         <div className="flex-1" />
-        <Link to="/login"><Button variant="ghost" size="sm" className="px-2 sm:px-3 text-xs sm:text-sm">دخول</Button></Link>
-        <Link to="/signup"><Button size="sm" className="px-2 sm:px-4 text-xs sm:text-sm">ابدأ مجانًا</Button></Link>
+        <Link to="/login"><Button variant="ghost" size="sm" className="px-3 text-xs sm:text-sm">دخول</Button></Link>
+        <Link to="/signup"><Button size="sm" className="px-3 sm:px-4 text-xs sm:text-sm">ابدأ مجانًا</Button></Link>
       </div>
     </header>
   );
