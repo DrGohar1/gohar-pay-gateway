@@ -1,0 +1,1 @@
+ALTER FUNCTION public.bootstrap_demo_merchant(uuid) SET search_path = public, pg_temp;
