@@ -36,6 +36,7 @@ import { Route as AuthenticatedAppBalancesRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAppApiKeysRouteImport } from './routes/_authenticated/app/api-keys'
 import { Route as AuthenticatedAppAlertsRouteImport } from './routes/_authenticated/app/alerts'
 import { Route as AuthenticatedAdminSystemRouteImport } from './routes/_authenticated/admin/system'
+import { Route as AuthenticatedAdminSubscriptionsRouteImport } from './routes/_authenticated/admin/subscriptions'
 import { Route as AuthenticatedAdminParserRouteImport } from './routes/_authenticated/admin/parser'
 import { Route as AuthenticatedAdminMerchantsRouteImport } from './routes/_authenticated/admin/merchants'
 import { Route as AuthenticatedAdminFraudRouteImport } from './routes/_authenticated/admin/fraud'
@@ -184,6 +185,12 @@ const AuthenticatedAdminSystemRoute =
     path: '/system',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminSubscriptionsRoute =
+  AuthenticatedAdminSubscriptionsRouteImport.update({
+    id: '/subscriptions',
+    path: '/subscriptions',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminParserRoute =
   AuthenticatedAdminParserRouteImport.update({
     id: '/parser',
@@ -220,6 +227,7 @@ export interface FileRoutesByFullPath {
   '/admin/fraud': typeof AuthenticatedAdminFraudRoute
   '/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
   '/admin/parser': typeof AuthenticatedAdminParserRoute
+  '/admin/subscriptions': typeof AuthenticatedAdminSubscriptionsRoute
   '/admin/system': typeof AuthenticatedAdminSystemRoute
   '/app/alerts': typeof AuthenticatedAppAlertsRoute
   '/app/api-keys': typeof AuthenticatedAppApiKeysRoute
@@ -250,6 +258,7 @@ export interface FileRoutesByTo {
   '/admin/fraud': typeof AuthenticatedAdminFraudRoute
   '/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
   '/admin/parser': typeof AuthenticatedAdminParserRoute
+  '/admin/subscriptions': typeof AuthenticatedAdminSubscriptionsRoute
   '/admin/system': typeof AuthenticatedAdminSystemRoute
   '/app/alerts': typeof AuthenticatedAppAlertsRoute
   '/app/api-keys': typeof AuthenticatedAppApiKeysRoute
@@ -284,6 +293,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/fraud': typeof AuthenticatedAdminFraudRoute
   '/_authenticated/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
   '/_authenticated/admin/parser': typeof AuthenticatedAdminParserRoute
+  '/_authenticated/admin/subscriptions': typeof AuthenticatedAdminSubscriptionsRoute
   '/_authenticated/admin/system': typeof AuthenticatedAdminSystemRoute
   '/_authenticated/app/alerts': typeof AuthenticatedAppAlertsRoute
   '/_authenticated/app/api-keys': typeof AuthenticatedAppApiKeysRoute
@@ -318,6 +328,7 @@ export interface FileRouteTypes {
     | '/admin/fraud'
     | '/admin/merchants'
     | '/admin/parser'
+    | '/admin/subscriptions'
     | '/admin/system'
     | '/app/alerts'
     | '/app/api-keys'
@@ -348,6 +359,7 @@ export interface FileRouteTypes {
     | '/admin/fraud'
     | '/admin/merchants'
     | '/admin/parser'
+    | '/admin/subscriptions'
     | '/admin/system'
     | '/app/alerts'
     | '/app/api-keys'
@@ -381,6 +393,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/fraud'
     | '/_authenticated/admin/merchants'
     | '/_authenticated/admin/parser'
+    | '/_authenticated/admin/subscriptions'
     | '/_authenticated/admin/system'
     | '/_authenticated/app/alerts'
     | '/_authenticated/app/api-keys'
@@ -604,6 +617,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSystemRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/subscriptions': {
+      id: '/_authenticated/admin/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/admin/subscriptions'
+      preLoaderRoute: typeof AuthenticatedAdminSubscriptionsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/parser': {
       id: '/_authenticated/admin/parser'
       path: '/parser'
@@ -640,6 +660,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminFraudRoute: typeof AuthenticatedAdminFraudRoute
   AuthenticatedAdminMerchantsRoute: typeof AuthenticatedAdminMerchantsRoute
   AuthenticatedAdminParserRoute: typeof AuthenticatedAdminParserRoute
+  AuthenticatedAdminSubscriptionsRoute: typeof AuthenticatedAdminSubscriptionsRoute
   AuthenticatedAdminSystemRoute: typeof AuthenticatedAdminSystemRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
@@ -649,6 +670,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminFraudRoute: AuthenticatedAdminFraudRoute,
   AuthenticatedAdminMerchantsRoute: AuthenticatedAdminMerchantsRoute,
   AuthenticatedAdminParserRoute: AuthenticatedAdminParserRoute,
+  AuthenticatedAdminSubscriptionsRoute: AuthenticatedAdminSubscriptionsRoute,
   AuthenticatedAdminSystemRoute: AuthenticatedAdminSystemRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
