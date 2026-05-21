@@ -64,7 +64,7 @@ function Hero() {
           <Activity className="h-3 w-3 text-primary" />
           بنية تأكيد مدفوعات للسوق المصري
         </div>
-        <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight text-balance">
+        <h1 className="font-display text-3xl sm:text-4xl md:text-6xl font-bold leading-tight text-balance">
           أكّد مدفوعاتك من المحافظ والإنستا باي
           <br />
           <span className="bg-hero-gradient bg-clip-text text-transparent">في ثوانٍ، بثقة كاملة</span>
