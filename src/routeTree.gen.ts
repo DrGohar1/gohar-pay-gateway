@@ -14,6 +14,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PayCodeRouteImport } from './routes/pay.$code'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
@@ -27,6 +28,7 @@ import { Route as AuthenticatedAppTeamRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedAppSourcesRouteImport } from './routes/_authenticated/app/sources'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app/settings'
 import { Route as AuthenticatedAppRiskRouteImport } from './routes/_authenticated/app/risk'
+import { Route as AuthenticatedAppPaymentLinksRouteImport } from './routes/_authenticated/app/payment-links'
 import { Route as AuthenticatedAppOrdersRouteImport } from './routes/_authenticated/app/orders'
 import { Route as AuthenticatedAppIntegrationsRouteImport } from './routes/_authenticated/app/integrations'
 import { Route as AuthenticatedAppConfirmationsRouteImport } from './routes/_authenticated/app/confirmations'
@@ -61,6 +63,11 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayCodeRoute = PayCodeRouteImport.update({
+  id: '/pay/$code',
+  path: '/pay/$code',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
@@ -132,6 +139,12 @@ const AuthenticatedAppRiskRoute = AuthenticatedAppRiskRouteImport.update({
   path: '/risk',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppPaymentLinksRoute =
+  AuthenticatedAppPaymentLinksRouteImport.update({
+    id: '/payment-links',
+    path: '/payment-links',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppOrdersRoute = AuthenticatedAppOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
@@ -202,6 +215,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/pay/$code': typeof PayCodeRoute
   '/admin/devices': typeof AuthenticatedAdminDevicesRoute
   '/admin/fraud': typeof AuthenticatedAdminFraudRoute
   '/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
@@ -213,6 +227,7 @@ export interface FileRoutesByFullPath {
   '/app/confirmations': typeof AuthenticatedAppConfirmationsRoute
   '/app/integrations': typeof AuthenticatedAppIntegrationsRoute
   '/app/orders': typeof AuthenticatedAppOrdersRoute
+  '/app/payment-links': typeof AuthenticatedAppPaymentLinksRoute
   '/app/risk': typeof AuthenticatedAppRiskRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/sources': typeof AuthenticatedAppSourcesRoute
@@ -230,6 +245,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
+  '/pay/$code': typeof PayCodeRoute
   '/admin/devices': typeof AuthenticatedAdminDevicesRoute
   '/admin/fraud': typeof AuthenticatedAdminFraudRoute
   '/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
@@ -241,6 +257,7 @@ export interface FileRoutesByTo {
   '/app/confirmations': typeof AuthenticatedAppConfirmationsRoute
   '/app/integrations': typeof AuthenticatedAppIntegrationsRoute
   '/app/orders': typeof AuthenticatedAppOrdersRoute
+  '/app/payment-links': typeof AuthenticatedAppPaymentLinksRoute
   '/app/risk': typeof AuthenticatedAppRiskRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/sources': typeof AuthenticatedAppSourcesRoute
@@ -262,6 +279,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/pay/$code': typeof PayCodeRoute
   '/_authenticated/admin/devices': typeof AuthenticatedAdminDevicesRoute
   '/_authenticated/admin/fraud': typeof AuthenticatedAdminFraudRoute
   '/_authenticated/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
@@ -273,6 +291,7 @@ export interface FileRoutesById {
   '/_authenticated/app/confirmations': typeof AuthenticatedAppConfirmationsRoute
   '/_authenticated/app/integrations': typeof AuthenticatedAppIntegrationsRoute
   '/_authenticated/app/orders': typeof AuthenticatedAppOrdersRoute
+  '/_authenticated/app/payment-links': typeof AuthenticatedAppPaymentLinksRoute
   '/_authenticated/app/risk': typeof AuthenticatedAppRiskRoute
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
   '/_authenticated/app/sources': typeof AuthenticatedAppSourcesRoute
@@ -294,6 +313,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/admin'
     | '/app'
+    | '/pay/$code'
     | '/admin/devices'
     | '/admin/fraud'
     | '/admin/merchants'
@@ -305,6 +325,7 @@ export interface FileRouteTypes {
     | '/app/confirmations'
     | '/app/integrations'
     | '/app/orders'
+    | '/app/payment-links'
     | '/app/risk'
     | '/app/settings'
     | '/app/sources'
@@ -322,6 +343,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/reset-password'
     | '/signup'
+    | '/pay/$code'
     | '/admin/devices'
     | '/admin/fraud'
     | '/admin/merchants'
@@ -333,6 +355,7 @@ export interface FileRouteTypes {
     | '/app/confirmations'
     | '/app/integrations'
     | '/app/orders'
+    | '/app/payment-links'
     | '/app/risk'
     | '/app/settings'
     | '/app/sources'
@@ -353,6 +376,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authenticated/admin'
     | '/_authenticated/app'
+    | '/pay/$code'
     | '/_authenticated/admin/devices'
     | '/_authenticated/admin/fraud'
     | '/_authenticated/admin/merchants'
@@ -364,6 +388,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/confirmations'
     | '/_authenticated/app/integrations'
     | '/_authenticated/app/orders'
+    | '/_authenticated/app/payment-links'
     | '/_authenticated/app/risk'
     | '/_authenticated/app/settings'
     | '/_authenticated/app/sources'
@@ -383,6 +408,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SignupRoute: typeof SignupRoute
+  PayCodeRoute: typeof PayCodeRoute
   ApiPublicHeartbeatRoute: typeof ApiPublicHeartbeatRoute
   ApiPublicIngestRoute: typeof ApiPublicIngestRoute
 }
@@ -422,6 +448,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pay/$code': {
+      id: '/pay/$code'
+      path: '/pay/$code'
+      fullPath: '/pay/$code'
+      preLoaderRoute: typeof PayCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/app': {
@@ -513,6 +546,13 @@ declare module '@tanstack/react-router' {
       path: '/risk'
       fullPath: '/app/risk'
       preLoaderRoute: typeof AuthenticatedAppRiskRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/payment-links': {
+      id: '/_authenticated/app/payment-links'
+      path: '/payment-links'
+      fullPath: '/app/payment-links'
+      preLoaderRoute: typeof AuthenticatedAppPaymentLinksRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/orders': {
@@ -623,6 +663,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppConfirmationsRoute: typeof AuthenticatedAppConfirmationsRoute
   AuthenticatedAppIntegrationsRoute: typeof AuthenticatedAppIntegrationsRoute
   AuthenticatedAppOrdersRoute: typeof AuthenticatedAppOrdersRoute
+  AuthenticatedAppPaymentLinksRoute: typeof AuthenticatedAppPaymentLinksRoute
   AuthenticatedAppRiskRoute: typeof AuthenticatedAppRiskRoute
   AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
   AuthenticatedAppSourcesRoute: typeof AuthenticatedAppSourcesRoute
@@ -640,6 +681,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppConfirmationsRoute: AuthenticatedAppConfirmationsRoute,
   AuthenticatedAppIntegrationsRoute: AuthenticatedAppIntegrationsRoute,
   AuthenticatedAppOrdersRoute: AuthenticatedAppOrdersRoute,
+  AuthenticatedAppPaymentLinksRoute: AuthenticatedAppPaymentLinksRoute,
   AuthenticatedAppRiskRoute: AuthenticatedAppRiskRoute,
   AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
   AuthenticatedAppSourcesRoute: AuthenticatedAppSourcesRoute,
@@ -673,9 +715,20 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SignupRoute: SignupRoute,
+  PayCodeRoute: PayCodeRoute,
   ApiPublicHeartbeatRoute: ApiPublicHeartbeatRoute,
   ApiPublicIngestRoute: ApiPublicIngestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
