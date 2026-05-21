@@ -57,11 +57,12 @@ export function runRules(body: string, rules: ParserRule[]): Extraction {
     const value = m[1] ?? m[2] ?? m[0];
     if (!value) continue;
     out.matched_fields.push(r.field);
+    const bag = out as unknown as Record<string, unknown>;
     if (r.field === "amount" || r.field === "balance_after") {
       const n = parseNumber(value);
-      if (n !== undefined) (out as Record<string, unknown>)[r.field] = n;
+      if (n !== undefined) bag[r.field] = n;
     } else {
-      (out as Record<string, unknown>)[r.field] = value.trim();
+      bag[r.field] = value.trim();
     }
   }
 
