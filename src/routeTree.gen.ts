@@ -19,6 +19,7 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as ApiPublicIngestRouteImport } from './routes/api/public/ingest'
+import { Route as ApiPublicHeartbeatRouteImport } from './routes/api/public/heartbeat'
 import { Route as AuthenticatedAppWebhooksRouteImport } from './routes/_authenticated/app/webhooks'
 import { Route as AuthenticatedAppTransfersRouteImport } from './routes/_authenticated/app/transfers'
 import { Route as AuthenticatedAppTransactionsRouteImport } from './routes/_authenticated/app/transactions'
@@ -85,6 +86,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
 const ApiPublicIngestRoute = ApiPublicIngestRouteImport.update({
   id: '/api/public/ingest',
   path: '/api/public/ingest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicHeartbeatRoute = ApiPublicHeartbeatRouteImport.update({
+  id: '/api/public/heartbeat',
+  path: '/api/public/heartbeat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAppWebhooksRoute =
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/app/transactions': typeof AuthenticatedAppTransactionsRoute
   '/app/transfers': typeof AuthenticatedAppTransfersRoute
   '/app/webhooks': typeof AuthenticatedAppWebhooksRoute
+  '/api/public/heartbeat': typeof ApiPublicHeartbeatRoute
   '/api/public/ingest': typeof ApiPublicIngestRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
@@ -241,6 +248,7 @@ export interface FileRoutesByTo {
   '/app/transactions': typeof AuthenticatedAppTransactionsRoute
   '/app/transfers': typeof AuthenticatedAppTransfersRoute
   '/app/webhooks': typeof AuthenticatedAppWebhooksRoute
+  '/api/public/heartbeat': typeof ApiPublicHeartbeatRoute
   '/api/public/ingest': typeof ApiPublicIngestRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
@@ -272,6 +280,7 @@ export interface FileRoutesById {
   '/_authenticated/app/transactions': typeof AuthenticatedAppTransactionsRoute
   '/_authenticated/app/transfers': typeof AuthenticatedAppTransfersRoute
   '/_authenticated/app/webhooks': typeof AuthenticatedAppWebhooksRoute
+  '/api/public/heartbeat': typeof ApiPublicHeartbeatRoute
   '/api/public/ingest': typeof ApiPublicIngestRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
@@ -303,6 +312,7 @@ export interface FileRouteTypes {
     | '/app/transactions'
     | '/app/transfers'
     | '/app/webhooks'
+    | '/api/public/heartbeat'
     | '/api/public/ingest'
     | '/admin/'
     | '/app/'
@@ -330,6 +340,7 @@ export interface FileRouteTypes {
     | '/app/transactions'
     | '/app/transfers'
     | '/app/webhooks'
+    | '/api/public/heartbeat'
     | '/api/public/ingest'
     | '/admin'
     | '/app'
@@ -360,6 +371,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/transactions'
     | '/_authenticated/app/transfers'
     | '/_authenticated/app/webhooks'
+    | '/api/public/heartbeat'
     | '/api/public/ingest'
     | '/_authenticated/admin/'
     | '/_authenticated/app/'
@@ -371,6 +383,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SignupRoute: typeof SignupRoute
+  ApiPublicHeartbeatRoute: typeof ApiPublicHeartbeatRoute
   ApiPublicIngestRoute: typeof ApiPublicIngestRoute
 }
 
@@ -444,6 +457,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/ingest'
       fullPath: '/api/public/ingest'
       preLoaderRoute: typeof ApiPublicIngestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/heartbeat': {
+      id: '/api/public/heartbeat'
+      path: '/api/public/heartbeat'
+      fullPath: '/api/public/heartbeat'
+      preLoaderRoute: typeof ApiPublicHeartbeatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/app/webhooks': {
@@ -653,6 +673,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SignupRoute: SignupRoute,
+  ApiPublicHeartbeatRoute: ApiPublicHeartbeatRoute,
   ApiPublicIngestRoute: ApiPublicIngestRoute,
 }
 export const routeTree = rootRouteImport

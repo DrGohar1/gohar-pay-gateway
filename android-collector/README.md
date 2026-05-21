@@ -1,46 +1,76 @@
-# Android Collector (Kotlin) — Gohar Pay
+# Android Collector — Gohar Pay (v1.0)
 
-تطبيق أندرويد خفيف يلتقط إشعارات SMS من المحافظ والبنوك ويرفعها لـ Gohar Pay عبر `/api/public/ingest`.
+تطبيق أندرويد خفيف يلتقط رسائل SMS من المحافظ والبنوك ويرفعها لمنصة جوهر باي.
 
-## البنية
+## محتوى المشروع
 
 ```
 android-collector/
-└── app/src/main/
-    ├── AndroidManifest.xml        ← يطلب RECEIVE_SMS + INTERNET
-    ├── java/com/goharpay/collector/
-    │   ├── SmsBroadcastReceiver.kt ← يلتقط SMS_RECEIVED_ACTION
-    │   ├── IngestWorker.kt         ← WorkManager: يرفع للسيرفر مع retry
-    │   └── MainActivity.kt         ← شاشة الربط (Device ID + Token)
-    └── res/                        ← strings_ar.xml + layout
+├── build.gradle.kts          ← root project
+├── settings.gradle.kts
+├── gradle.properties
+└── app/
+    ├── build.gradle.kts      ← compileSdk 34, minSdk 24
+    └── src/main/
+        ├── AndroidManifest.xml
+        └── java/com/goharpay/collector/
+            ├── MainActivity.kt         ← شاشة الإعداد (UI كامل)
+            ├── SmsBroadcastReceiver.kt ← يلتقط SMS_RECEIVED_ACTION
+            ├── IngestWorker.kt         ← يرفع للسيرفر مع retry
+            └── HeartbeatWorker.kt      ← periodic ping كل 15 دقيقة
 ```
 
-## التشغيل
+## بناء وتشغيل APK
 
-1. افتح المشروع في Android Studio Hedgehog أو أحدث.
-2. عدّل `applicationId` في `app/build.gradle.kts`.
-3. شغّل التطبيق على جهاز فيه شريحة فودافون/اتصالات/أورنج/InstaPay.
-4. سجّل الجهاز من لوحة `/app/sources` في Gohar Pay → احصل على `device_id` + `device_token`.
-5. الصقهم في شاشة التطبيق الأولى ثم اضغط "ابدأ التحصيل".
+### المتطلبات
+- Android Studio Hedgehog (2023.1) أو أحدث، أو JDK 17 + Android SDK 34.
 
-## التدفق
+### الطريقة الأسرع (Android Studio)
+1. افتح Android Studio → **Open** → اختر مجلد `android-collector/`.
+2. انتظر Gradle sync.
+3. **Build → Build Bundle(s) / APK(s) → Build APK(s)**.
+4. هيظهر مسار الـ APK في الإشعار — اضغط **locate**.
+
+### من الـ Terminal
+```bash
+cd android-collector
+./gradlew assembleDebug
+# APK: app/build/outputs/apk/debug/app-debug.apk
+```
+
+> أول مرة: شغّل `gradle wrapper --gradle-version 8.7` لو الـ wrapper مش موجود.
+
+## تثبيت وتشغيل
+1. انقل `app-debug.apk` للهاتف (USB أو أي طريقة).
+2. فعّل "السماح بتثبيت من مصادر غير معروفة" ثم ثبّت.
+3. افتح التطبيق → اظهرلك شاشة الإعداد.
+4. من لوحة جوهر باي: **/app/sources** → سجّل جهاز جديد → انسخ `device_id` و `device_token`.
+5. الصق القيم في التطبيق + (اختياري) اختر المزوّد → **ابدأ التحصيل**.
+6. اقبل أذونات SMS و Notifications.
+
+## التدفق التقني
 
 ```
-[SMS] → SmsBroadcastReceiver → WorkManager(IngestWorker)
-     → POST /api/public/ingest
-       Headers: X-Device-Token, X-Idempotency-Key
-       Body: { device_id, provider, sender, body, received_at }
-     → Server: parser_engine → parsed_transactions → webhook_deliveries
+رسالة جديدة → SmsBroadcastReceiver
+             ↓
+        WorkManager(IngestWorker)
+             ↓
+    POST /api/public/ingest
+    Headers: X-Device-Token, X-Idempotency-Key
+    Body: { device_id, sender, body, received_at }
+             ↓
+   raw_messages → parser_engine
+             ↓
+   parsed_transactions (status, confidence, risk)
+             ↓
+   webhook_deliveries (لو confirmed)
 ```
 
 ## الأمان
+- التوكن مخزّن كـ SHA-256 hash في `devices.device_token_hash`.
+- Idempotency-Key يمنع التكرار حتى مع إعادة محاولات WorkManager.
+- التطبيق ما بيرفعش بيانات شخصية إضافية — بس نص الرسالة + المُرسِل.
 
-- التوكن مخزّن hashed في `devices.device_token_hash` (SHA-256).
-- Idempotency-Key يمنع التكرار حتى لو أعاد الـ Worker الإرسال.
-- الـ payload لا يحتوي بيانات شخصية إضافية — فقط نص الـ SMS و المرسل.
-
-## ما زال يحتاج كود (Phase 6.1)
-
-- شاشة MainActivity (واجهة الإعداد).
-- شاشة backfill لاستيراد رسائل قديمة بعد التثبيت.
-- تحديث Foreground Service لإظهار إشعار "التحصيل نشط".
+## الخطوة التالية
+- شاشة backfill لاستيراد رسائل قديمة (Phase 6.1).
+- Foreground service لإشعار دائم "التحصيل نشط".
