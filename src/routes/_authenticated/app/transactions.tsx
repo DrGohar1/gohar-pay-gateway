@@ -148,8 +148,9 @@ function Page() {
                         <td className="p-3 text-muted-foreground text-xs" dir="ltr">{new Date(t.created_at).toLocaleString("ar-EG")}</td>
                         <td className="p-3">
                           <div className="flex gap-1">
-                            <Button size="sm" variant="ghost" onClick={() => updateStatus(t.id, "confirmed")}>تأكيد</Button>
-                            <Button size="sm" variant="ghost" onClick={() => updateStatus(t.id, "rejected")}>رفض</Button>
+                            <Button size="sm" variant="ghost" onClick={() => setDrawer(t)}><Eye className="h-4 w-4" /></Button>
+                            <Button size="sm" variant="ghost" onClick={() => updateStatus(t.id, "confirmed")}><CheckCircle2 className="h-4 w-4 text-success" /></Button>
+                            <Button size="sm" variant="ghost" onClick={() => updateStatus(t.id, "rejected")}><XCircle className="h-4 w-4 text-destructive" /></Button>
                           </div>
                         </td>
                       </tr>
