@@ -35,12 +35,12 @@ function LandingPage() {
 function Nav() {
   return (
     <header className="sticky top-0 z-30 border-b bg-background/80 backdrop-blur">
-      <div className="mx-auto max-w-6xl flex items-center px-6 h-16 gap-4">
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-hero-gradient grid place-items-center text-white">
+      <div className="mx-auto max-w-6xl flex items-center px-4 sm:px-6 h-14 sm:h-16 gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="h-8 w-8 shrink-0 rounded-lg bg-hero-gradient grid place-items-center text-white">
             <Sparkles className="h-4 w-4" />
           </div>
-          <span className="font-display font-bold text-lg">جوهر باي</span>
+          <span className="font-display font-bold text-base sm:text-lg truncate">جوهر باي</span>
         </div>
         <nav className="hidden md:flex items-center gap-6 mr-8 text-sm text-muted-foreground">
           <a href="#features" className="hover:text-foreground">المميزات</a>
@@ -49,8 +49,8 @@ function Nav() {
           <a href="#faq" className="hover:text-foreground">الأسئلة</a>
         </nav>
         <div className="flex-1" />
-        <Link to="/login"><Button variant="ghost" size="sm">تسجيل دخول</Button></Link>
-        <Link to="/signup"><Button size="sm">ابدأ الآن</Button></Link>
+        <Link to="/login"><Button variant="ghost" size="sm" className="px-2 sm:px-3">دخول</Button></Link>
+        <Link to="/signup"><Button size="sm" className="px-2 sm:px-3">ابدأ</Button></Link>
       </div>
     </header>
   );
