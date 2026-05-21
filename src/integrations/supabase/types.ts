@@ -1065,6 +1065,10 @@ export type Database = {
     Functions: {
       bootstrap_demo_merchant: { Args: { _user_id: string }; Returns: string }
       current_user_merchant_id: { Args: never; Returns: string }
+      enqueue_webhook_delivery: {
+        Args: { _event: string; _merchant: string; _payload: Json }
+        Returns: undefined
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
