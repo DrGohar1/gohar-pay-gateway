@@ -35,12 +35,12 @@ function LandingPage() {
 function Nav() {
   return (
     <header className="sticky top-0 z-30 border-b bg-background/80 backdrop-blur">
-      <div className="mx-auto max-w-6xl flex items-center px-6 h-16 gap-4">
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-hero-gradient grid place-items-center text-white">
+      <div className="mx-auto max-w-6xl flex items-center px-4 sm:px-6 h-14 sm:h-16 gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="h-8 w-8 shrink-0 rounded-lg bg-hero-gradient grid place-items-center text-white">
             <Sparkles className="h-4 w-4" />
           </div>
-          <span className="font-display font-bold text-lg">جوهر باي</span>
+          <span className="font-display font-bold text-base sm:text-lg truncate">جوهر باي</span>
         </div>
         <nav className="hidden md:flex items-center gap-6 mr-8 text-sm text-muted-foreground">
           <a href="#features" className="hover:text-foreground">المميزات</a>
@@ -49,8 +49,8 @@ function Nav() {
           <a href="#faq" className="hover:text-foreground">الأسئلة</a>
         </nav>
         <div className="flex-1" />
-        <Link to="/login"><Button variant="ghost" size="sm">تسجيل دخول</Button></Link>
-        <Link to="/signup"><Button size="sm">ابدأ الآن</Button></Link>
+        <Link to="/login"><Button variant="ghost" size="sm" className="px-2 sm:px-3">دخول</Button></Link>
+        <Link to="/signup"><Button size="sm" className="px-2 sm:px-3">ابدأ</Button></Link>
       </div>
     </header>
   );
@@ -59,12 +59,12 @@ function Nav() {
 function Hero() {
   return (
     <section className="relative overflow-hidden glow-grid">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border bg-card px-4 py-1.5 text-xs text-muted-foreground mb-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-24 md:py-32 text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border bg-card px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs text-muted-foreground mb-6">
           <Activity className="h-3 w-3 text-primary" />
           بنية تأكيد مدفوعات للسوق المصري
         </div>
-        <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight text-balance">
+        <h1 className="font-display text-3xl sm:text-4xl md:text-6xl font-bold leading-tight text-balance">
           أكّد مدفوعاتك من المحافظ والإنستا باي
           <br />
           <span className="bg-hero-gradient bg-clip-text text-transparent">في ثوانٍ، بثقة كاملة</span>
