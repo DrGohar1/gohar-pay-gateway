@@ -10,12 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedAppWebhooksRouteImport } from './routes/_authenticated/app/webhooks'
 import { Route as AuthenticatedAppTransfersRouteImport } from './routes/_authenticated/app/transfers'
 import { Route as AuthenticatedAppTransactionsRouteImport } from './routes/_authenticated/app/transactions'
@@ -29,10 +31,20 @@ import { Route as AuthenticatedAppConfirmationsRouteImport } from './routes/_aut
 import { Route as AuthenticatedAppBalancesRouteImport } from './routes/_authenticated/app/balances'
 import { Route as AuthenticatedAppApiKeysRouteImport } from './routes/_authenticated/app/api-keys'
 import { Route as AuthenticatedAppAlertsRouteImport } from './routes/_authenticated/app/alerts'
+import { Route as AuthenticatedAdminSystemRouteImport } from './routes/_authenticated/admin/system'
+import { Route as AuthenticatedAdminParserRouteImport } from './routes/_authenticated/admin/parser'
+import { Route as AuthenticatedAdminMerchantsRouteImport } from './routes/_authenticated/admin/merchants'
+import { Route as AuthenticatedAdminFraudRouteImport } from './routes/_authenticated/admin/fraud'
+import { Route as AuthenticatedAdminDevicesRouteImport } from './routes/_authenticated/admin/devices'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -63,6 +75,11 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const AuthenticatedAppWebhooksRoute =
   AuthenticatedAppWebhooksRouteImport.update({
@@ -136,13 +153,48 @@ const AuthenticatedAppAlertsRoute = AuthenticatedAppAlertsRouteImport.update({
   path: '/alerts',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAdminSystemRoute =
+  AuthenticatedAdminSystemRouteImport.update({
+    id: '/system',
+    path: '/system',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminParserRoute =
+  AuthenticatedAdminParserRouteImport.update({
+    id: '/parser',
+    path: '/parser',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminMerchantsRoute =
+  AuthenticatedAdminMerchantsRouteImport.update({
+    id: '/merchants',
+    path: '/merchants',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminFraudRoute = AuthenticatedAdminFraudRouteImport.update({
+  id: '/fraud',
+  path: '/fraud',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminDevicesRoute =
+  AuthenticatedAdminDevicesRouteImport.update({
+    id: '/devices',
+    path: '/devices',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/admin/devices': typeof AuthenticatedAdminDevicesRoute
+  '/admin/fraud': typeof AuthenticatedAdminFraudRoute
+  '/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
+  '/admin/parser': typeof AuthenticatedAdminParserRoute
+  '/admin/system': typeof AuthenticatedAdminSystemRoute
   '/app/alerts': typeof AuthenticatedAppAlertsRoute
   '/app/api-keys': typeof AuthenticatedAppApiKeysRoute
   '/app/balances': typeof AuthenticatedAppBalancesRoute
@@ -156,13 +208,19 @@ export interface FileRoutesByFullPath {
   '/app/transactions': typeof AuthenticatedAppTransactionsRoute
   '/app/transfers': typeof AuthenticatedAppTransfersRoute
   '/app/webhooks': typeof AuthenticatedAppWebhooksRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin/devices': typeof AuthenticatedAdminDevicesRoute
+  '/admin/fraud': typeof AuthenticatedAdminFraudRoute
+  '/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
+  '/admin/parser': typeof AuthenticatedAdminParserRoute
+  '/admin/system': typeof AuthenticatedAdminSystemRoute
   '/app/alerts': typeof AuthenticatedAppAlertsRoute
   '/app/api-keys': typeof AuthenticatedAppApiKeysRoute
   '/app/balances': typeof AuthenticatedAppBalancesRoute
@@ -176,6 +234,7 @@ export interface FileRoutesByTo {
   '/app/transactions': typeof AuthenticatedAppTransactionsRoute
   '/app/transfers': typeof AuthenticatedAppTransfersRoute
   '/app/webhooks': typeof AuthenticatedAppWebhooksRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesById {
@@ -183,9 +242,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/admin/devices': typeof AuthenticatedAdminDevicesRoute
+  '/_authenticated/admin/fraud': typeof AuthenticatedAdminFraudRoute
+  '/_authenticated/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
+  '/_authenticated/admin/parser': typeof AuthenticatedAdminParserRoute
+  '/_authenticated/admin/system': typeof AuthenticatedAdminSystemRoute
   '/_authenticated/app/alerts': typeof AuthenticatedAppAlertsRoute
   '/_authenticated/app/api-keys': typeof AuthenticatedAppApiKeysRoute
   '/_authenticated/app/balances': typeof AuthenticatedAppBalancesRoute
@@ -199,6 +264,7 @@ export interface FileRoutesById {
   '/_authenticated/app/transactions': typeof AuthenticatedAppTransactionsRoute
   '/_authenticated/app/transfers': typeof AuthenticatedAppTransfersRoute
   '/_authenticated/app/webhooks': typeof AuthenticatedAppWebhooksRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRouteTypes {
@@ -206,9 +272,15 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/reset-password'
     | '/signup'
     | '/admin'
     | '/app'
+    | '/admin/devices'
+    | '/admin/fraud'
+    | '/admin/merchants'
+    | '/admin/parser'
+    | '/admin/system'
     | '/app/alerts'
     | '/app/api-keys'
     | '/app/balances'
@@ -222,13 +294,19 @@ export interface FileRouteTypes {
     | '/app/transactions'
     | '/app/transfers'
     | '/app/webhooks'
+    | '/admin/'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
+    | '/reset-password'
     | '/signup'
-    | '/admin'
+    | '/admin/devices'
+    | '/admin/fraud'
+    | '/admin/merchants'
+    | '/admin/parser'
+    | '/admin/system'
     | '/app/alerts'
     | '/app/api-keys'
     | '/app/balances'
@@ -242,15 +320,22 @@ export interface FileRouteTypes {
     | '/app/transactions'
     | '/app/transfers'
     | '/app/webhooks'
+    | '/admin'
     | '/app'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/login'
+    | '/reset-password'
     | '/signup'
     | '/_authenticated/admin'
     | '/_authenticated/app'
+    | '/_authenticated/admin/devices'
+    | '/_authenticated/admin/fraud'
+    | '/_authenticated/admin/merchants'
+    | '/_authenticated/admin/parser'
+    | '/_authenticated/admin/system'
     | '/_authenticated/app/alerts'
     | '/_authenticated/app/api-keys'
     | '/_authenticated/app/balances'
@@ -264,6 +349,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/transactions'
     | '/_authenticated/app/transfers'
     | '/_authenticated/app/webhooks'
+    | '/_authenticated/admin/'
     | '/_authenticated/app/'
   fileRoutesById: FileRoutesById
 }
@@ -271,6 +357,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   LoginRoute: typeof LoginRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SignupRoute: typeof SignupRoute
 }
 
@@ -281,6 +368,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -324,6 +418,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/'
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/app/webhooks': {
       id: '/_authenticated/app/webhooks'
@@ -416,8 +517,64 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppAlertsRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/admin/system': {
+      id: '/_authenticated/admin/system'
+      path: '/system'
+      fullPath: '/admin/system'
+      preLoaderRoute: typeof AuthenticatedAdminSystemRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/parser': {
+      id: '/_authenticated/admin/parser'
+      path: '/parser'
+      fullPath: '/admin/parser'
+      preLoaderRoute: typeof AuthenticatedAdminParserRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/merchants': {
+      id: '/_authenticated/admin/merchants'
+      path: '/merchants'
+      fullPath: '/admin/merchants'
+      preLoaderRoute: typeof AuthenticatedAdminMerchantsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/fraud': {
+      id: '/_authenticated/admin/fraud'
+      path: '/fraud'
+      fullPath: '/admin/fraud'
+      preLoaderRoute: typeof AuthenticatedAdminFraudRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/devices': {
+      id: '/_authenticated/admin/devices'
+      path: '/devices'
+      fullPath: '/admin/devices'
+      preLoaderRoute: typeof AuthenticatedAdminDevicesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
+
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminDevicesRoute: typeof AuthenticatedAdminDevicesRoute
+  AuthenticatedAdminFraudRoute: typeof AuthenticatedAdminFraudRoute
+  AuthenticatedAdminMerchantsRoute: typeof AuthenticatedAdminMerchantsRoute
+  AuthenticatedAdminParserRoute: typeof AuthenticatedAdminParserRoute
+  AuthenticatedAdminSystemRoute: typeof AuthenticatedAdminSystemRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminDevicesRoute: AuthenticatedAdminDevicesRoute,
+  AuthenticatedAdminFraudRoute: AuthenticatedAdminFraudRoute,
+  AuthenticatedAdminMerchantsRoute: AuthenticatedAdminMerchantsRoute,
+  AuthenticatedAdminParserRoute: AuthenticatedAdminParserRoute,
+  AuthenticatedAdminSystemRoute: AuthenticatedAdminSystemRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
 
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppAlertsRoute: typeof AuthenticatedAppAlertsRoute
@@ -457,12 +614,12 @@ const AuthenticatedAppRouteWithChildren =
   AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
 }
 
@@ -474,6 +631,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SignupRoute: SignupRoute,
 }
 export const routeTree = rootRouteImport

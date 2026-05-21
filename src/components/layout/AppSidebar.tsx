@@ -67,15 +67,9 @@ export function AdminSidebar() {
     { to: "/admin", label: "لوحة التحكم", exact: true },
     { to: "/admin/merchants", label: "التجار" },
     { to: "/admin/devices", label: "الأجهزة" },
-    { to: "/admin/lines", label: "الخطوط" },
-    { to: "/admin/transactions", label: "الحوالات" },
     { to: "/admin/parser", label: "محرك التحليل" },
-    { to: "/admin/webhooks", label: "Webhooks" },
     { to: "/admin/fraud", label: "قائمة الاحتيال" },
-    { to: "/admin/ai-quality", label: "جودة الذكاء الصناعي" },
-    { to: "/admin/plans", label: "الباقات" },
-    { to: "/admin/flags", label: "Feature Flags" },
-    { to: "/admin/settings", label: "إعدادات النظام" },
+    { to: "/admin/system", label: "الباقات والنظام" },
   ];
   return (
     <aside className="w-64 shrink-0 border-l bg-sidebar h-screen sticky top-0 hidden md:flex flex-col">
