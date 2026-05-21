@@ -16,7 +16,19 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
+import { Route as AuthenticatedAppWebhooksRouteImport } from './routes/_authenticated/app/webhooks'
+import { Route as AuthenticatedAppTransfersRouteImport } from './routes/_authenticated/app/transfers'
 import { Route as AuthenticatedAppTransactionsRouteImport } from './routes/_authenticated/app/transactions'
+import { Route as AuthenticatedAppTeamRouteImport } from './routes/_authenticated/app/team'
+import { Route as AuthenticatedAppSourcesRouteImport } from './routes/_authenticated/app/sources'
+import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app/settings'
+import { Route as AuthenticatedAppRiskRouteImport } from './routes/_authenticated/app/risk'
+import { Route as AuthenticatedAppOrdersRouteImport } from './routes/_authenticated/app/orders'
+import { Route as AuthenticatedAppIntegrationsRouteImport } from './routes/_authenticated/app/integrations'
+import { Route as AuthenticatedAppConfirmationsRouteImport } from './routes/_authenticated/app/confirmations'
+import { Route as AuthenticatedAppBalancesRouteImport } from './routes/_authenticated/app/balances'
+import { Route as AuthenticatedAppApiKeysRouteImport } from './routes/_authenticated/app/api-keys'
+import { Route as AuthenticatedAppAlertsRouteImport } from './routes/_authenticated/app/alerts'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -52,12 +64,78 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppWebhooksRoute =
+  AuthenticatedAppWebhooksRouteImport.update({
+    id: '/webhooks',
+    path: '/webhooks',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppTransfersRoute =
+  AuthenticatedAppTransfersRouteImport.update({
+    id: '/transfers',
+    path: '/transfers',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppTransactionsRoute =
   AuthenticatedAppTransactionsRouteImport.update({
     id: '/transactions',
     path: '/transactions',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const AuthenticatedAppTeamRoute = AuthenticatedAppTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppSourcesRoute = AuthenticatedAppSourcesRouteImport.update({
+  id: '/sources',
+  path: '/sources',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppSettingsRoute =
+  AuthenticatedAppSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppRiskRoute = AuthenticatedAppRiskRouteImport.update({
+  id: '/risk',
+  path: '/risk',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppOrdersRoute = AuthenticatedAppOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppIntegrationsRoute =
+  AuthenticatedAppIntegrationsRouteImport.update({
+    id: '/integrations',
+    path: '/integrations',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppConfirmationsRoute =
+  AuthenticatedAppConfirmationsRouteImport.update({
+    id: '/confirmations',
+    path: '/confirmations',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppBalancesRoute =
+  AuthenticatedAppBalancesRouteImport.update({
+    id: '/balances',
+    path: '/balances',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppApiKeysRoute = AuthenticatedAppApiKeysRouteImport.update({
+  id: '/api-keys',
+  path: '/api-keys',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppAlertsRoute = AuthenticatedAppAlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -65,7 +143,19 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app/alerts': typeof AuthenticatedAppAlertsRoute
+  '/app/api-keys': typeof AuthenticatedAppApiKeysRoute
+  '/app/balances': typeof AuthenticatedAppBalancesRoute
+  '/app/confirmations': typeof AuthenticatedAppConfirmationsRoute
+  '/app/integrations': typeof AuthenticatedAppIntegrationsRoute
+  '/app/orders': typeof AuthenticatedAppOrdersRoute
+  '/app/risk': typeof AuthenticatedAppRiskRoute
+  '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/app/sources': typeof AuthenticatedAppSourcesRoute
+  '/app/team': typeof AuthenticatedAppTeamRoute
   '/app/transactions': typeof AuthenticatedAppTransactionsRoute
+  '/app/transfers': typeof AuthenticatedAppTransfersRoute
+  '/app/webhooks': typeof AuthenticatedAppWebhooksRoute
   '/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -73,7 +163,19 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/app/alerts': typeof AuthenticatedAppAlertsRoute
+  '/app/api-keys': typeof AuthenticatedAppApiKeysRoute
+  '/app/balances': typeof AuthenticatedAppBalancesRoute
+  '/app/confirmations': typeof AuthenticatedAppConfirmationsRoute
+  '/app/integrations': typeof AuthenticatedAppIntegrationsRoute
+  '/app/orders': typeof AuthenticatedAppOrdersRoute
+  '/app/risk': typeof AuthenticatedAppRiskRoute
+  '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/app/sources': typeof AuthenticatedAppSourcesRoute
+  '/app/team': typeof AuthenticatedAppTeamRoute
   '/app/transactions': typeof AuthenticatedAppTransactionsRoute
+  '/app/transfers': typeof AuthenticatedAppTransfersRoute
+  '/app/webhooks': typeof AuthenticatedAppWebhooksRoute
   '/app': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesById {
@@ -84,7 +186,19 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/app/alerts': typeof AuthenticatedAppAlertsRoute
+  '/_authenticated/app/api-keys': typeof AuthenticatedAppApiKeysRoute
+  '/_authenticated/app/balances': typeof AuthenticatedAppBalancesRoute
+  '/_authenticated/app/confirmations': typeof AuthenticatedAppConfirmationsRoute
+  '/_authenticated/app/integrations': typeof AuthenticatedAppIntegrationsRoute
+  '/_authenticated/app/orders': typeof AuthenticatedAppOrdersRoute
+  '/_authenticated/app/risk': typeof AuthenticatedAppRiskRoute
+  '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/_authenticated/app/sources': typeof AuthenticatedAppSourcesRoute
+  '/_authenticated/app/team': typeof AuthenticatedAppTeamRoute
   '/_authenticated/app/transactions': typeof AuthenticatedAppTransactionsRoute
+  '/_authenticated/app/transfers': typeof AuthenticatedAppTransfersRoute
+  '/_authenticated/app/webhooks': typeof AuthenticatedAppWebhooksRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRouteTypes {
@@ -95,10 +209,40 @@ export interface FileRouteTypes {
     | '/signup'
     | '/admin'
     | '/app'
+    | '/app/alerts'
+    | '/app/api-keys'
+    | '/app/balances'
+    | '/app/confirmations'
+    | '/app/integrations'
+    | '/app/orders'
+    | '/app/risk'
+    | '/app/settings'
+    | '/app/sources'
+    | '/app/team'
     | '/app/transactions'
+    | '/app/transfers'
+    | '/app/webhooks'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/admin' | '/app/transactions' | '/app'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/admin'
+    | '/app/alerts'
+    | '/app/api-keys'
+    | '/app/balances'
+    | '/app/confirmations'
+    | '/app/integrations'
+    | '/app/orders'
+    | '/app/risk'
+    | '/app/settings'
+    | '/app/sources'
+    | '/app/team'
+    | '/app/transactions'
+    | '/app/transfers'
+    | '/app/webhooks'
+    | '/app'
   id:
     | '__root__'
     | '/'
@@ -107,7 +251,19 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authenticated/admin'
     | '/_authenticated/app'
+    | '/_authenticated/app/alerts'
+    | '/_authenticated/app/api-keys'
+    | '/_authenticated/app/balances'
+    | '/_authenticated/app/confirmations'
+    | '/_authenticated/app/integrations'
+    | '/_authenticated/app/orders'
+    | '/_authenticated/app/risk'
+    | '/_authenticated/app/settings'
+    | '/_authenticated/app/sources'
+    | '/_authenticated/app/team'
     | '/_authenticated/app/transactions'
+    | '/_authenticated/app/transfers'
+    | '/_authenticated/app/webhooks'
     | '/_authenticated/app/'
   fileRoutesById: FileRoutesById
 }
@@ -169,6 +325,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/webhooks': {
+      id: '/_authenticated/app/webhooks'
+      path: '/webhooks'
+      fullPath: '/app/webhooks'
+      preLoaderRoute: typeof AuthenticatedAppWebhooksRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/transfers': {
+      id: '/_authenticated/app/transfers'
+      path: '/transfers'
+      fullPath: '/app/transfers'
+      preLoaderRoute: typeof AuthenticatedAppTransfersRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/transactions': {
       id: '/_authenticated/app/transactions'
       path: '/transactions'
@@ -176,16 +346,110 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppTransactionsRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/team': {
+      id: '/_authenticated/app/team'
+      path: '/team'
+      fullPath: '/app/team'
+      preLoaderRoute: typeof AuthenticatedAppTeamRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/sources': {
+      id: '/_authenticated/app/sources'
+      path: '/sources'
+      fullPath: '/app/sources'
+      preLoaderRoute: typeof AuthenticatedAppSourcesRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/settings': {
+      id: '/_authenticated/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AuthenticatedAppSettingsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/risk': {
+      id: '/_authenticated/app/risk'
+      path: '/risk'
+      fullPath: '/app/risk'
+      preLoaderRoute: typeof AuthenticatedAppRiskRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/orders': {
+      id: '/_authenticated/app/orders'
+      path: '/orders'
+      fullPath: '/app/orders'
+      preLoaderRoute: typeof AuthenticatedAppOrdersRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/integrations': {
+      id: '/_authenticated/app/integrations'
+      path: '/integrations'
+      fullPath: '/app/integrations'
+      preLoaderRoute: typeof AuthenticatedAppIntegrationsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/confirmations': {
+      id: '/_authenticated/app/confirmations'
+      path: '/confirmations'
+      fullPath: '/app/confirmations'
+      preLoaderRoute: typeof AuthenticatedAppConfirmationsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/balances': {
+      id: '/_authenticated/app/balances'
+      path: '/balances'
+      fullPath: '/app/balances'
+      preLoaderRoute: typeof AuthenticatedAppBalancesRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/api-keys': {
+      id: '/_authenticated/app/api-keys'
+      path: '/api-keys'
+      fullPath: '/app/api-keys'
+      preLoaderRoute: typeof AuthenticatedAppApiKeysRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/alerts': {
+      id: '/_authenticated/app/alerts'
+      path: '/alerts'
+      fullPath: '/app/alerts'
+      preLoaderRoute: typeof AuthenticatedAppAlertsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
   }
 }
 
 interface AuthenticatedAppRouteChildren {
+  AuthenticatedAppAlertsRoute: typeof AuthenticatedAppAlertsRoute
+  AuthenticatedAppApiKeysRoute: typeof AuthenticatedAppApiKeysRoute
+  AuthenticatedAppBalancesRoute: typeof AuthenticatedAppBalancesRoute
+  AuthenticatedAppConfirmationsRoute: typeof AuthenticatedAppConfirmationsRoute
+  AuthenticatedAppIntegrationsRoute: typeof AuthenticatedAppIntegrationsRoute
+  AuthenticatedAppOrdersRoute: typeof AuthenticatedAppOrdersRoute
+  AuthenticatedAppRiskRoute: typeof AuthenticatedAppRiskRoute
+  AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
+  AuthenticatedAppSourcesRoute: typeof AuthenticatedAppSourcesRoute
+  AuthenticatedAppTeamRoute: typeof AuthenticatedAppTeamRoute
   AuthenticatedAppTransactionsRoute: typeof AuthenticatedAppTransactionsRoute
+  AuthenticatedAppTransfersRoute: typeof AuthenticatedAppTransfersRoute
+  AuthenticatedAppWebhooksRoute: typeof AuthenticatedAppWebhooksRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
+  AuthenticatedAppAlertsRoute: AuthenticatedAppAlertsRoute,
+  AuthenticatedAppApiKeysRoute: AuthenticatedAppApiKeysRoute,
+  AuthenticatedAppBalancesRoute: AuthenticatedAppBalancesRoute,
+  AuthenticatedAppConfirmationsRoute: AuthenticatedAppConfirmationsRoute,
+  AuthenticatedAppIntegrationsRoute: AuthenticatedAppIntegrationsRoute,
+  AuthenticatedAppOrdersRoute: AuthenticatedAppOrdersRoute,
+  AuthenticatedAppRiskRoute: AuthenticatedAppRiskRoute,
+  AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
+  AuthenticatedAppSourcesRoute: AuthenticatedAppSourcesRoute,
+  AuthenticatedAppTeamRoute: AuthenticatedAppTeamRoute,
   AuthenticatedAppTransactionsRoute: AuthenticatedAppTransactionsRoute,
+  AuthenticatedAppTransfersRoute: AuthenticatedAppTransfersRoute,
+  AuthenticatedAppWebhooksRoute: AuthenticatedAppWebhooksRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
 
@@ -215,13 +479,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -1063,6 +1063,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      bootstrap_demo_merchant: { Args: { _user_id: string }; Returns: string }
+      current_user_merchant_id: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
