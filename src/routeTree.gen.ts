@@ -14,6 +14,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PayCodeRouteImport } from './routes/pay.$code'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
@@ -27,6 +28,7 @@ import { Route as AuthenticatedAppTeamRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedAppSourcesRouteImport } from './routes/_authenticated/app/sources'
 import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app/settings'
 import { Route as AuthenticatedAppRiskRouteImport } from './routes/_authenticated/app/risk'
+import { Route as AuthenticatedAppPaymentLinksRouteImport } from './routes/_authenticated/app/payment-links'
 import { Route as AuthenticatedAppOrdersRouteImport } from './routes/_authenticated/app/orders'
 import { Route as AuthenticatedAppIntegrationsRouteImport } from './routes/_authenticated/app/integrations'
 import { Route as AuthenticatedAppConfirmationsRouteImport } from './routes/_authenticated/app/confirmations'
@@ -34,6 +36,7 @@ import { Route as AuthenticatedAppBalancesRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAppApiKeysRouteImport } from './routes/_authenticated/app/api-keys'
 import { Route as AuthenticatedAppAlertsRouteImport } from './routes/_authenticated/app/alerts'
 import { Route as AuthenticatedAdminSystemRouteImport } from './routes/_authenticated/admin/system'
+import { Route as AuthenticatedAdminSubscriptionsRouteImport } from './routes/_authenticated/admin/subscriptions'
 import { Route as AuthenticatedAdminParserRouteImport } from './routes/_authenticated/admin/parser'
 import { Route as AuthenticatedAdminMerchantsRouteImport } from './routes/_authenticated/admin/merchants'
 import { Route as AuthenticatedAdminFraudRouteImport } from './routes/_authenticated/admin/fraud'
@@ -61,6 +64,11 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayCodeRoute = PayCodeRouteImport.update({
+  id: '/pay/$code',
+  path: '/pay/$code',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
@@ -132,6 +140,12 @@ const AuthenticatedAppRiskRoute = AuthenticatedAppRiskRouteImport.update({
   path: '/risk',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppPaymentLinksRoute =
+  AuthenticatedAppPaymentLinksRouteImport.update({
+    id: '/payment-links',
+    path: '/payment-links',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppOrdersRoute = AuthenticatedAppOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
@@ -171,6 +185,12 @@ const AuthenticatedAdminSystemRoute =
     path: '/system',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminSubscriptionsRoute =
+  AuthenticatedAdminSubscriptionsRouteImport.update({
+    id: '/subscriptions',
+    path: '/subscriptions',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminParserRoute =
   AuthenticatedAdminParserRouteImport.update({
     id: '/parser',
@@ -202,10 +222,12 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/pay/$code': typeof PayCodeRoute
   '/admin/devices': typeof AuthenticatedAdminDevicesRoute
   '/admin/fraud': typeof AuthenticatedAdminFraudRoute
   '/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
   '/admin/parser': typeof AuthenticatedAdminParserRoute
+  '/admin/subscriptions': typeof AuthenticatedAdminSubscriptionsRoute
   '/admin/system': typeof AuthenticatedAdminSystemRoute
   '/app/alerts': typeof AuthenticatedAppAlertsRoute
   '/app/api-keys': typeof AuthenticatedAppApiKeysRoute
@@ -213,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/app/confirmations': typeof AuthenticatedAppConfirmationsRoute
   '/app/integrations': typeof AuthenticatedAppIntegrationsRoute
   '/app/orders': typeof AuthenticatedAppOrdersRoute
+  '/app/payment-links': typeof AuthenticatedAppPaymentLinksRoute
   '/app/risk': typeof AuthenticatedAppRiskRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/sources': typeof AuthenticatedAppSourcesRoute
@@ -230,10 +253,12 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
+  '/pay/$code': typeof PayCodeRoute
   '/admin/devices': typeof AuthenticatedAdminDevicesRoute
   '/admin/fraud': typeof AuthenticatedAdminFraudRoute
   '/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
   '/admin/parser': typeof AuthenticatedAdminParserRoute
+  '/admin/subscriptions': typeof AuthenticatedAdminSubscriptionsRoute
   '/admin/system': typeof AuthenticatedAdminSystemRoute
   '/app/alerts': typeof AuthenticatedAppAlertsRoute
   '/app/api-keys': typeof AuthenticatedAppApiKeysRoute
@@ -241,6 +266,7 @@ export interface FileRoutesByTo {
   '/app/confirmations': typeof AuthenticatedAppConfirmationsRoute
   '/app/integrations': typeof AuthenticatedAppIntegrationsRoute
   '/app/orders': typeof AuthenticatedAppOrdersRoute
+  '/app/payment-links': typeof AuthenticatedAppPaymentLinksRoute
   '/app/risk': typeof AuthenticatedAppRiskRoute
   '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/sources': typeof AuthenticatedAppSourcesRoute
@@ -262,10 +288,12 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/pay/$code': typeof PayCodeRoute
   '/_authenticated/admin/devices': typeof AuthenticatedAdminDevicesRoute
   '/_authenticated/admin/fraud': typeof AuthenticatedAdminFraudRoute
   '/_authenticated/admin/merchants': typeof AuthenticatedAdminMerchantsRoute
   '/_authenticated/admin/parser': typeof AuthenticatedAdminParserRoute
+  '/_authenticated/admin/subscriptions': typeof AuthenticatedAdminSubscriptionsRoute
   '/_authenticated/admin/system': typeof AuthenticatedAdminSystemRoute
   '/_authenticated/app/alerts': typeof AuthenticatedAppAlertsRoute
   '/_authenticated/app/api-keys': typeof AuthenticatedAppApiKeysRoute
@@ -273,6 +301,7 @@ export interface FileRoutesById {
   '/_authenticated/app/confirmations': typeof AuthenticatedAppConfirmationsRoute
   '/_authenticated/app/integrations': typeof AuthenticatedAppIntegrationsRoute
   '/_authenticated/app/orders': typeof AuthenticatedAppOrdersRoute
+  '/_authenticated/app/payment-links': typeof AuthenticatedAppPaymentLinksRoute
   '/_authenticated/app/risk': typeof AuthenticatedAppRiskRoute
   '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
   '/_authenticated/app/sources': typeof AuthenticatedAppSourcesRoute
@@ -294,10 +323,12 @@ export interface FileRouteTypes {
     | '/signup'
     | '/admin'
     | '/app'
+    | '/pay/$code'
     | '/admin/devices'
     | '/admin/fraud'
     | '/admin/merchants'
     | '/admin/parser'
+    | '/admin/subscriptions'
     | '/admin/system'
     | '/app/alerts'
     | '/app/api-keys'
@@ -305,6 +336,7 @@ export interface FileRouteTypes {
     | '/app/confirmations'
     | '/app/integrations'
     | '/app/orders'
+    | '/app/payment-links'
     | '/app/risk'
     | '/app/settings'
     | '/app/sources'
@@ -322,10 +354,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/reset-password'
     | '/signup'
+    | '/pay/$code'
     | '/admin/devices'
     | '/admin/fraud'
     | '/admin/merchants'
     | '/admin/parser'
+    | '/admin/subscriptions'
     | '/admin/system'
     | '/app/alerts'
     | '/app/api-keys'
@@ -333,6 +367,7 @@ export interface FileRouteTypes {
     | '/app/confirmations'
     | '/app/integrations'
     | '/app/orders'
+    | '/app/payment-links'
     | '/app/risk'
     | '/app/settings'
     | '/app/sources'
@@ -353,10 +388,12 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authenticated/admin'
     | '/_authenticated/app'
+    | '/pay/$code'
     | '/_authenticated/admin/devices'
     | '/_authenticated/admin/fraud'
     | '/_authenticated/admin/merchants'
     | '/_authenticated/admin/parser'
+    | '/_authenticated/admin/subscriptions'
     | '/_authenticated/admin/system'
     | '/_authenticated/app/alerts'
     | '/_authenticated/app/api-keys'
@@ -364,6 +401,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/confirmations'
     | '/_authenticated/app/integrations'
     | '/_authenticated/app/orders'
+    | '/_authenticated/app/payment-links'
     | '/_authenticated/app/risk'
     | '/_authenticated/app/settings'
     | '/_authenticated/app/sources'
@@ -383,6 +421,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SignupRoute: typeof SignupRoute
+  PayCodeRoute: typeof PayCodeRoute
   ApiPublicHeartbeatRoute: typeof ApiPublicHeartbeatRoute
   ApiPublicIngestRoute: typeof ApiPublicIngestRoute
 }
@@ -422,6 +461,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pay/$code': {
+      id: '/pay/$code'
+      path: '/pay/$code'
+      fullPath: '/pay/$code'
+      preLoaderRoute: typeof PayCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/app': {
@@ -515,6 +561,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppRiskRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/payment-links': {
+      id: '/_authenticated/app/payment-links'
+      path: '/payment-links'
+      fullPath: '/app/payment-links'
+      preLoaderRoute: typeof AuthenticatedAppPaymentLinksRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/orders': {
       id: '/_authenticated/app/orders'
       path: '/orders'
@@ -564,6 +617,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSystemRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/subscriptions': {
+      id: '/_authenticated/admin/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/admin/subscriptions'
+      preLoaderRoute: typeof AuthenticatedAdminSubscriptionsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/parser': {
       id: '/_authenticated/admin/parser'
       path: '/parser'
@@ -600,6 +660,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminFraudRoute: typeof AuthenticatedAdminFraudRoute
   AuthenticatedAdminMerchantsRoute: typeof AuthenticatedAdminMerchantsRoute
   AuthenticatedAdminParserRoute: typeof AuthenticatedAdminParserRoute
+  AuthenticatedAdminSubscriptionsRoute: typeof AuthenticatedAdminSubscriptionsRoute
   AuthenticatedAdminSystemRoute: typeof AuthenticatedAdminSystemRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
@@ -609,6 +670,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminFraudRoute: AuthenticatedAdminFraudRoute,
   AuthenticatedAdminMerchantsRoute: AuthenticatedAdminMerchantsRoute,
   AuthenticatedAdminParserRoute: AuthenticatedAdminParserRoute,
+  AuthenticatedAdminSubscriptionsRoute: AuthenticatedAdminSubscriptionsRoute,
   AuthenticatedAdminSystemRoute: AuthenticatedAdminSystemRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
@@ -623,6 +685,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppConfirmationsRoute: typeof AuthenticatedAppConfirmationsRoute
   AuthenticatedAppIntegrationsRoute: typeof AuthenticatedAppIntegrationsRoute
   AuthenticatedAppOrdersRoute: typeof AuthenticatedAppOrdersRoute
+  AuthenticatedAppPaymentLinksRoute: typeof AuthenticatedAppPaymentLinksRoute
   AuthenticatedAppRiskRoute: typeof AuthenticatedAppRiskRoute
   AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
   AuthenticatedAppSourcesRoute: typeof AuthenticatedAppSourcesRoute
@@ -640,6 +703,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppConfirmationsRoute: AuthenticatedAppConfirmationsRoute,
   AuthenticatedAppIntegrationsRoute: AuthenticatedAppIntegrationsRoute,
   AuthenticatedAppOrdersRoute: AuthenticatedAppOrdersRoute,
+  AuthenticatedAppPaymentLinksRoute: AuthenticatedAppPaymentLinksRoute,
   AuthenticatedAppRiskRoute: AuthenticatedAppRiskRoute,
   AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
   AuthenticatedAppSourcesRoute: AuthenticatedAppSourcesRoute,
@@ -673,6 +737,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SignupRoute: SignupRoute,
+  PayCodeRoute: PayCodeRoute,
   ApiPublicHeartbeatRoute: ApiPublicHeartbeatRoute,
   ApiPublicIngestRoute: ApiPublicIngestRoute,
 }

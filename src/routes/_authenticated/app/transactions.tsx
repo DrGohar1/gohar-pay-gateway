@@ -7,7 +7,8 @@ import { EmptyState, ErrorState, LoadingSkeleton, StatusChip, providerArLabel, t
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { ChevronDown, ChevronUp, Download, Search, ListChecks } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { ChevronDown, ChevronUp, Download, Search, ListChecks, ExternalLink, CheckCircle2, XCircle, Eye } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/app/transactions")({ component: Page });
@@ -29,6 +30,7 @@ function Page() {
   const [providerF, setProviderF] = useState("");
   const [riskF, setRiskF] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [drawer, setDrawer] = useState<Txn | null>(null);
   const [sort, setSort] = useState<{ k: keyof Txn; dir: "asc" | "desc" }>({ k: "created_at", dir: "desc" });
   const [page, setPage] = useState(0);
   const pageSize = 20;
@@ -146,8 +148,9 @@ function Page() {
                         <td className="p-3 text-muted-foreground text-xs" dir="ltr">{new Date(t.created_at).toLocaleString("ar-EG")}</td>
                         <td className="p-3">
                           <div className="flex gap-1">
-                            <Button size="sm" variant="ghost" onClick={() => updateStatus(t.id, "confirmed")}>تأكيد</Button>
-                            <Button size="sm" variant="ghost" onClick={() => updateStatus(t.id, "rejected")}>رفض</Button>
+                            <Button size="sm" variant="ghost" onClick={() => setDrawer(t)}><Eye className="h-4 w-4" /></Button>
+                            <Button size="sm" variant="ghost" onClick={() => updateStatus(t.id, "confirmed")}><CheckCircle2 className="h-4 w-4 text-success" /></Button>
+                            <Button size="sm" variant="ghost" onClick={() => updateStatus(t.id, "rejected")}><XCircle className="h-4 w-4 text-destructive" /></Button>
                           </div>
                         </td>
                       </tr>
@@ -191,6 +194,57 @@ function Page() {
           </div>
         )}
       </div>
+
+      <Sheet open={!!drawer} onOpenChange={(o) => !o && setDrawer(null)}>
+        <SheetContent side="left" className="w-full sm:max-w-lg overflow-y-auto" dir="rtl">
+          {drawer && (
+            <>
+              <SheetHeader><SheetTitle>تفاصيل الحوالة</SheetTitle></SheetHeader>
+              <div className="space-y-4 mt-4 text-sm">
+                <div className="rounded-lg bg-muted/40 p-4 text-center">
+                  <div className="text-xs text-muted-foreground">المبلغ</div>
+                  <div className="text-3xl font-bold tabular-nums mt-1">{Number(drawer.amount).toLocaleString("ar-EG")} <span className="text-base font-normal">ج.م</span></div>
+                  <div className="flex justify-center gap-2 mt-2">
+                    <StatusChip tone={drawer.status === "confirmed" ? "success" : drawer.status === "rejected" ? "destructive" : "warning"}>{txnStatusAr[drawer.status]}</StatusChip>
+                    <StatusChip tone={drawer.risk === "low" ? "success" : drawer.risk === "medium" ? "warning" : "destructive"}>{riskAr[drawer.risk]}</StatusChip>
+                  </div>
+                </div>
+                <dl className="grid grid-cols-2 gap-3">
+                  <div><dt className="text-xs text-muted-foreground">المزود</dt><dd>{drawer.provider ? providerArLabel[drawer.provider] : "—"}</dd></div>
+                  <div><dt className="text-xs text-muted-foreground">المرجع</dt><dd dir="ltr" className="font-mono text-xs">{drawer.reference ?? "—"}</dd></div>
+                  <div><dt className="text-xs text-muted-foreground">المرسل</dt><dd dir="ltr">{drawer.sender_identifier ?? "—"}</dd></div>
+                  <div><dt className="text-xs text-muted-foreground">الثقة</dt><dd>{Math.round(Number(drawer.confidence) * 100)}%</dd></div>
+                  <div><dt className="text-xs text-muted-foreground">الرصيد بعد</dt><dd className="tabular-nums">{drawer.balance_after != null ? Number(drawer.balance_after).toLocaleString("ar-EG") + " ج.م" : "—"}</dd></div>
+                  <div><dt className="text-xs text-muted-foreground">التوقيت</dt><dd dir="ltr" className="text-xs">{new Date(drawer.created_at).toLocaleString("ar-EG")}</dd></div>
+                </dl>
+                {drawer.matched_order_id && (
+                  <div className="rounded-lg border p-3 flex items-center justify-between">
+                    <div>
+                      <div className="text-xs text-muted-foreground">طلب مرتبط</div>
+                      <div dir="ltr" className="font-mono text-xs">{drawer.matched_order_id.slice(0, 12)}</div>
+                    </div>
+                    <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                )}
+                {drawer.notes && (
+                  <div><div className="text-xs text-muted-foreground mb-1">ملاحظات</div><div className="rounded bg-muted/40 p-3">{drawer.notes}</div></div>
+                )}
+                <div className="flex gap-2 pt-2 border-t">
+                  <Button className="flex-1" onClick={() => { updateStatus(drawer.id, "confirmed"); setDrawer(null); }}>
+                    <CheckCircle2 className="h-4 w-4 ml-1" /> تأكيد
+                  </Button>
+                  <Button variant="outline" className="flex-1" onClick={() => { updateStatus(drawer.id, "manual_review"); setDrawer(null); }}>
+                    مراجعة يدوية
+                  </Button>
+                  <Button variant="ghost" className="text-destructive" onClick={() => { updateStatus(drawer.id, "rejected"); setDrawer(null); }}>
+                    <XCircle className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </SheetContent>
+      </Sheet>
     </>
   );
 }

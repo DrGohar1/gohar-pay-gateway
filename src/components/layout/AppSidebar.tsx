@@ -2,13 +2,14 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard, ListChecks, Inbox, ShoppingCart, Smartphone,
   Wallet, Plug, KeyRound, Webhook, Bell, ShieldAlert, Users,
-  Settings, ArrowLeftRight, Sparkles,
+  Settings, ArrowLeftRight, Sparkles, Link2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nav = [
   { to: "/app", label: "نظرة عامة", icon: LayoutDashboard, exact: true },
   { to: "/app/transactions", label: "الحوالات", icon: ListChecks },
+  { to: "/app/payment-links", label: "روابط الدفع", icon: Link2 },
   { to: "/app/confirmations", label: "التأكيدات الواردة", icon: Inbox },
   { to: "/app/orders", label: "الطلبات", icon: ShoppingCart },
   { to: "/app/sources", label: "المصادر والخطوط", icon: Smartphone },
@@ -66,6 +67,7 @@ export function AdminSidebar() {
   const items = [
     { to: "/admin", label: "لوحة التحكم", exact: true },
     { to: "/admin/merchants", label: "التجار" },
+    { to: "/admin/subscriptions", label: "الاشتراكات والتجارب" },
     { to: "/admin/devices", label: "الأجهزة" },
     { to: "/admin/parser", label: "محرك التحليل" },
     { to: "/admin/fraud", label: "قائمة الاحتيال" },
