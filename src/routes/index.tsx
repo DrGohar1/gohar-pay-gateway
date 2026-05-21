@@ -49,10 +49,11 @@ function Nav() {
           <a href="#preview" className="hover:text-foreground transition">اللوحة</a>
           <a href="#pricing" className="hover:text-foreground transition">الباقات</a>
           <a href="#faq" className="hover:text-foreground transition">الأسئلة</a>
+          <a href="#contact" className="hover:text-foreground transition">اتصل بنا</a>
         </nav>
         <div className="flex-1" />
-        <Link to="/login"><Button variant="ghost" size="sm" className="px-2 sm:px-3 text-xs sm:text-sm">دخول</Button></Link>
-        <Link to="/signup"><Button size="sm" className="px-2 sm:px-4 text-xs sm:text-sm">ابدأ مجانًا</Button></Link>
+        <Link to="/login"><Button variant="ghost" size="sm" className="px-3 text-xs sm:text-sm">دخول</Button></Link>
+        <Link to="/signup"><Button size="sm" className="px-3 sm:px-4 text-xs sm:text-sm">ابدأ مجانًا</Button></Link>
       </div>
     </header>
   );
@@ -359,18 +360,26 @@ function CTA() {
 
 function Footer() {
   return (
-    <footer className="border-t py-10">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-muted-foreground">
-        <div className="flex items-center gap-2">
-          <div className="h-6 w-6 rounded-md bg-hero-gradient grid place-items-center text-white">
-            <Sparkles className="h-3 w-3" />
+    <footer id="contact" className="border-t py-10">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 grid gap-6 sm:grid-cols-2 text-xs sm:text-sm text-muted-foreground">
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <div className="h-6 w-6 rounded-md bg-hero-gradient grid place-items-center text-white">
+              <Sparkles className="h-3 w-3" />
+            </div>
+            <span className="font-display font-bold text-foreground">جوهر باي</span>
           </div>
-          © {new Date().getFullYear()} جوهر باي. جميع الحقوق محفوظة.
+          <p>منصة تأكيد المدفوعات للتجار في مصر.</p>
+          <div>© {new Date().getFullYear()} جميع الحقوق محفوظة.</div>
         </div>
-        <div className="flex gap-6">
-          <a href="#" className="hover:text-foreground">سياسة الخصوصية</a>
-          <a href="#" className="hover:text-foreground">الشروط</a>
-          <a href="#" className="hover:text-foreground">تواصل</a>
+        <div className="space-y-2 sm:text-left">
+          <div className="font-semibold text-foreground">اتصل بنا</div>
+          <div>📧 <a href="mailto:hello@goharpay.app" className="hover:text-foreground" dir="ltr">hello@goharpay.app</a></div>
+          <div>💬 <a href="https://wa.me/201000000000" className="hover:text-foreground" dir="ltr">+20 100 000 0000</a></div>
+          <div className="flex gap-4 pt-1">
+            <a href="#" className="hover:text-foreground">الخصوصية</a>
+            <a href="#" className="hover:text-foreground">الشروط</a>
+          </div>
         </div>
       </div>
     </footer>
