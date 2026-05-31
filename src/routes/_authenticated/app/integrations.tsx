@@ -127,9 +127,25 @@ window.location.href = url.toString();
           </Card>
         </div>
 
+        {/* Checkout embed */}
+        <div className="rounded-2xl border bg-card p-4 sm:p-6 space-y-3">
+          <h3 className="font-display font-semibold">تضمين صفحة الدفع في متجرك</h3>
+          <p className="text-sm text-muted-foreground">
+            استبدل <code dir="ltr">{`{LINK_CODE}`}</code> برمز رابط الدفع. تدعم الصفحة وضع <code>iframe</code> أو إعادة التوجيه بعد الدفع عبر <code dir="ltr">callback_url</code>.
+          </p>
+          <Tabs defaultValue="iframe">
+            <TabsList className="grid grid-cols-2 w-full sm:w-auto">
+              <TabsTrigger value="iframe">Iframe Embed</TabsTrigger>
+              <TabsTrigger value="redirect">Redirect</TabsTrigger>
+            </TabsList>
+            <TabsContent value="iframe"><CodeBlock code={iframeSnippet} onCopy={copy} /></TabsContent>
+            <TabsContent value="redirect"><CodeBlock code={redirectSnippet} onCopy={copy} /></TabsContent>
+          </Tabs>
+        </div>
+
         {/* Code samples */}
         <div className="rounded-2xl border bg-card p-4 sm:p-6">
-          <h3 className="font-display font-semibold mb-3">أمثلة جاهزة للنسخ</h3>
+          <h3 className="font-display font-semibold mb-3">أمثلة API جاهزة للنسخ</h3>
           <Tabs defaultValue="curl">
             <TabsList className="grid grid-cols-3 w-full sm:w-auto">
               <TabsTrigger value="curl">cURL</TabsTrigger>
@@ -141,6 +157,7 @@ window.location.href = url.toString();
             <TabsContent value="php"><CodeBlock code={wpSnippet} onCopy={copy} /></TabsContent>
           </Tabs>
         </div>
+
 
       </div>
     </>
