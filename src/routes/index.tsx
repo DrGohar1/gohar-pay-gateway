@@ -399,3 +399,103 @@ function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
     </div>
   );
 }
+
+function CoreMechanisms() {
+  const items = [
+    {
+      icon: Bot,
+      title: "بوابة دفع أوتوماتيكية بدون مراجعة يدوية",
+      desc: "محرك ذكاء اصطناعي يقرأ رسائل المحافظ بالعربية والعامية المصرية، يستخرج المبلغ والمرجع، ويصنّف المخاطر — كل ذلك دون أي تدخل من فريقك.",
+      tag: "AI Engine",
+      color: "from-primary/20 to-primary/5",
+    },
+    {
+      icon: Cpu,
+      title: "نظام Quroosh Logic للمطابقة الفورية",
+      desc: "نضيف قروشًا فريدة لكل عملية دفع متزامنة (0.01–0.99) فيستحيل تداخل اثنتين بنفس المبلغ. نتيجة: مطابقة تلقائية في أقل من 3 ثوانٍ.",
+      tag: "Patent-Pending",
+      color: "from-success/20 to-success/5",
+    },
+    {
+      icon: Wallet,
+      title: "أتمتة سحب الكاش وتحويله للبنك",
+      desc: "طابور تحويلات تلقائي يسحب أرصدة المحافظ ويُرسلها إلى InstaPay أو حسابك البنكي مع متابعة حالة كل تحويل لحظيًا.",
+      tag: "Payout Engine",
+      color: "from-warning/20 to-warning/5",
+    },
+  ];
+  return (
+    <section className="py-20 sm:py-24 border-t">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <SectionTitle eyebrow="المحرك الأساسي" title="ثلاث آليات تجعل تحصيلك مختلف تمامًا" />
+        <div className="mt-12 grid md:grid-cols-3 gap-5">
+          {items.map((m) => (
+            <div key={m.title} className="relative rounded-2xl border bg-card p-6 shadow-soft hover:shadow-elegant transition-all overflow-hidden">
+              <div className={`absolute inset-0 bg-gradient-to-bl ${m.color} opacity-50 pointer-events-none`} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="h-11 w-11 rounded-xl bg-card border grid place-items-center text-primary">
+                    <m.icon className="h-5 w-5" />
+                  </div>
+                  <span className="text-[10px] font-semibold tracking-wider uppercase bg-card border rounded-full px-2 py-1">{m.tag}</span>
+                </div>
+                <h3 className="font-display font-bold text-lg mb-2 leading-snug">{m.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{m.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ROICalculator() {
+  const [orders, setOrders] = useState(300);
+  const [avg, setAvg] = useState(450);
+  const monthlyVolume = orders * avg;
+  // Assume competitor fee ~2.75% vs Gohar Pay 0.9% on confirmed transactions
+  const savings = useMemo(() => Math.round(monthlyVolume * (0.0275 - 0.009)), [monthlyVolume]);
+  const hoursSaved = Math.round(orders * 0.8); // ~48s saved per order automated
+  return (
+    <section className="py-20 sm:py-24 border-t bg-muted/20">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <SectionTitle eyebrow="احسب توفيرك" title="كم ستوفر شهريًا مع جوهر باي؟" />
+        <div className="mt-10 grid md:grid-cols-2 gap-6 items-stretch">
+          <div className="rounded-2xl border bg-card p-6 space-y-5">
+            <div>
+              <label className="text-sm font-medium mb-2 block">عدد الطلبات شهريًا</label>
+              <Input type="number" value={orders} onChange={(e) => setOrders(Math.max(0, +e.target.value || 0))} className="text-lg font-bold" dir="ltr" />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-2 block">متوسط قيمة الطلب (ج.م)</label>
+              <Input type="number" value={avg} onChange={(e) => setAvg(Math.max(0, +e.target.value || 0))} className="text-lg font-bold" dir="ltr" />
+            </div>
+            <div className="rounded-xl bg-muted/40 p-4 text-sm space-y-1">
+              <div className="flex justify-between"><span className="text-muted-foreground">حجم تحصيل شهري</span><span className="font-bold tabular-nums">{monthlyVolume.toLocaleString("ar-EG")} ج.م</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">عمولة المنافسين (2.75%)</span><span className="tabular-nums text-destructive">{Math.round(monthlyVolume * 0.0275).toLocaleString("ar-EG")} ج.م</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">عمولة جوهر باي (0.9%)</span><span className="tabular-nums text-success">{Math.round(monthlyVolume * 0.009).toLocaleString("ar-EG")} ج.م</span></div>
+            </div>
+          </div>
+          <div className="rounded-2xl border bg-hero-gradient text-white p-6 flex flex-col justify-between shadow-elegant">
+            <div>
+              <div className="text-sm opacity-90 flex items-center gap-2"><Calculator className="h-4 w-4" /> توفيرك الشهري المتوقع</div>
+              <div className="mt-3 text-5xl font-display font-extrabold tabular-nums">{savings.toLocaleString("ar-EG")}</div>
+              <div className="opacity-90 mt-1">جنيهًا مصريًا شهريًا</div>
+              <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
+                <div className="rounded-xl bg-white/10 p-3 backdrop-blur"><div className="opacity-80 text-xs">توفير سنوي</div><div className="font-bold mt-1">{(savings * 12).toLocaleString("ar-EG")} ج.م</div></div>
+                <div className="rounded-xl bg-white/10 p-3 backdrop-blur"><div className="opacity-80 text-xs">ساعات عمل موفّرة</div><div className="font-bold mt-1">{hoursSaved} دقيقة</div></div>
+              </div>
+            </div>
+            <Link to="/signup" className="mt-6">
+              <Button size="lg" variant="secondary" className="w-full gap-2">
+                ابدأ تحصيلك الآن <ArrowLeft className="h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+}
