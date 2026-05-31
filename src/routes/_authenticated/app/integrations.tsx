@@ -50,6 +50,31 @@ await fetch("${baseUrl}/api/public/ingest", {
   })
 });`;
 
+  const checkoutBase = `${baseUrl}/pay/{LINK_CODE}`;
+  const iframeSnippet = `<!-- تضمين صفحة الدفع داخل متجرك -->
+<iframe
+  src="${checkoutBase}?embed=1&order_id=ORDER_123"
+  width="100%" height="640" frameborder="0"
+  style="border-radius:16px;max-width:480px;border:1px solid #e5e7eb"
+></iframe>
+<script>
+  window.addEventListener("message", (e) => {
+    if (e.data?.type === "gohar_pay:confirmed") {
+      // تم تأكيد الدفع تلقائيًا — حدّث الطلب
+      window.location.href = "/order-success?id=" + e.data.order_id;
+    }
+  });
+</script>`;
+
+  const redirectSnippet = `// إعادة توجيه المستخدم لصفحة الدفع
+const url = new URL("${checkoutBase}");
+url.searchParams.set("order_id", "ORDER_123");
+url.searchParams.set("callback_url", "https://yourstore.com/return");
+window.location.href = url.toString();
+// عند نجاح الدفع سيُعاد توجيه العميل إلى:
+// https://yourstore.com/return?status=confirmed&order_id=ORDER_123&transaction_id=...`;
+
+
   return (
     <>
       <AppTopbar title="الربط والتكاملات" />
