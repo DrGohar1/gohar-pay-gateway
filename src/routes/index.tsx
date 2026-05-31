@@ -25,6 +25,8 @@ function LandingPage() {
       <Hero />
       <TrustBar />
       <Features />
+      <CoreMechanisms />
+      <ROICalculator />
       <DashboardPreview />
       <HowItWorks />
       <UseCases />
