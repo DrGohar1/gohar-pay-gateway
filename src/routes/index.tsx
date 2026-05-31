@@ -1,8 +1,11 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useMemo, useState } from "react";
 import {
   Sparkles, Zap, Shield, Smartphone, Activity, ArrowLeft,
   CheckCircle2, Plug, BarChart3, MessageSquare, Lock, Bot, TrendingUp,
+  Cpu, Wallet, Send, Calculator, Layers, ShieldCheck, Timer,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
