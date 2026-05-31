@@ -498,4 +498,3 @@ function ROICalculator() {
     </section>
   );
 }
-}
